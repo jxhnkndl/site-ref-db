@@ -2,10 +2,16 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    colors: {
+      light: '#F2F2F2',
+      lighter: '#fffdfd',
+      dark: '#0D1515',
+      darkBlue: '#03658C',
+      royalBlue: '#368ABF',
+      skyBlue: '#66CAF2',
+      pink: '#D955AA',
+      palePink: '#f6a3d9'
+    }
   },
-  daisyui: {
-    themes: ['light', 'dark', 'forest', 'night'],
-  },
-  plugins: [require('daisyui')],
+  plugins: [require("@tailwindcss/forms")],
 };
