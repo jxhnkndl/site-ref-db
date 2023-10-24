@@ -1,9 +1,9 @@
 export default function Header() {
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <h1 className={styles.h1}>
-          <span className={styles.echo}>echo</span>DB
+    <header className={`${styles.header}`}>
+      <div className={`${styles.container}`}>
+        <h1 className={`${styles.h1}`}>
+          <span className={`${styles.echo}`}>echo</span>DB
         </h1>
       </div>
     </header>
