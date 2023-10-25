@@ -93,13 +93,13 @@ export default function CreateForm() {
     };
 
     try {
-      // const res = await fetch('/api/sites', {
-      //   method: 'POST',
-      //   headers: { 'Content-type': 'application/json' },
-      //   body: JSON.stringify(newSite),
-      // });
+      const res = await fetch('/api/sites', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(newSite),
+      });
 
-      // const data = await res.json();
+      const data = await res.json();
 
       toast.success('Site created 🚀', {
         position: toast.POSITION.TOP_RIGHT,
