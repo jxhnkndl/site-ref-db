@@ -44,14 +44,25 @@ export default function CreateForm() {
     });
   };
 
+  const validateURL = (url) => {
+    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    return urlRegex.test(url);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(123);
-
     const { url, title, keywords } = formData;
+    const isValidURL = validateURL(url);
 
     if (!url) {
+      toast.error('Please include a URL 👀', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    if (!isValidURL) {
       toast.error('Please include a valid URL 👀', {
         position: toast.POSITION.TOP_RIGHT,
       });
