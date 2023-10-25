@@ -4,7 +4,7 @@ import { keywords } from '../keywords';
 import { toast } from 'react-toastify';
 import KeywordInput from './KeywordInput';
 
-export default function CreateForm({ setSubmitted }) {
+export default function CreateForm() {
   const [formData, setFormData] = useState({
     title: '',
     type: '',
@@ -32,7 +32,7 @@ export default function CreateForm({ setSubmitted }) {
 
     if (isChecked) {
       // Add keyword if it's been checked
-      updatedKeywords.push({ keyword: keyword, name: keywordName })
+      updatedKeywords.push({ keyword: keyword, name: keywordName });
     } else {
       // Remove keyword if it's been unchecked
       const keywordIndex = updatedKeywords.indexOf(keyword);
@@ -41,18 +41,81 @@ export default function CreateForm({ setSubmitted }) {
 
     setFormData({
       ...formData,
-      keywords: updatedKeywords
+      keywords: updatedKeywords,
     });
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(123);
+
+    const { url, title, type, keywords } = formData;
+
+    if (!url) {
+      toast.error('Please include a valid URL 👀', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    if (!title) {
+      toast.error('Please include a site title 👀', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    if (!type) {
+      toast.error('Please include a site type 👀', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    const newSite = {
+      url,
+      title,
+      type,
+      keywords,
+    };
+
+    console.log(newSite);
+
+    try {
+      const res = await fetch('/api/sites', {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(newSite)
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      toast.success('Site created 🚀', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    } catch (error) {
+      console.error(error);
+      toast.error('Oh no! Something went wrong!', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
   };
 
   return (
     <div className={`${styles.sidebar}`}>
       <h2 className={`${styles.formHeading}`}>Add Site</h2>
       <form onSubmit={handleSubmit} className={`${styles.formAdd}`}>
+        <input
+          className={`${styles.input}`}
+          name='url'
+          type='text'
+          placeholder='https://www.example.com'
+          value={formData.url}
+          onChange={handleTextChange}
+        />
         <input
           className={`${styles.input}`}
           name='title'
@@ -67,14 +130,6 @@ export default function CreateForm({ setSubmitted }) {
           type='text'
           placeholder='Site Type'
           value={formData.type}
-          onChange={handleTextChange}
-        />
-        <input
-          className={`${styles.input}`}
-          name='url'
-          type='text'
-          placeholder='www.example.com'
-          value={formData.url}
           onChange={handleTextChange}
         />
 
