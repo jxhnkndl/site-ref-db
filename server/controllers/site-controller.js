@@ -4,7 +4,6 @@ module.exports = {
   async getAllSites(req, res) {
     try {
       const allSites = await Site.find({});
-      console.log(allSites);
       res.status(200).json(allSites);
     } catch (error) {
       console.error(error);
