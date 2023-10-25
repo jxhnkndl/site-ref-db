@@ -1,32 +1,19 @@
-import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from './components/Header';
 import Results from './pages/Results';
 import CreateForm from './pages/CreateForm';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
-  const [sites, setSites] = useState([]);
-
-  useEffect(() => {
-    const fetchSites = async () => {
-      const res = await fetch('/api/sites');
-      const data = await res.json();
-      setSites(data);
-    };
-
-    fetchSites();
-  }, []);
-
   return (
     <Router>
       <div className={`${styles.pageContainer}`}>
         <Header />
         <main className={`${styles.main}`}>
           <Routes>
-            <Route path="/" element={<Results sites={sites} />} />
+            <Route path="/" element={<Results />} />
             <Route path="/create" element={<CreateForm />} />
           </Routes>
         </main>
