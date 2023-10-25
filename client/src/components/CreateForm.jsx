@@ -23,7 +23,6 @@ export default function CreateForm({ setSubmitted }) {
   };
 
   const handleCheck = (e) => {
-    console.log(123)
     const keywordName = e.target.name;
     const keyword = e.target.value;
     const isChecked = e.target.checked;
@@ -32,11 +31,9 @@ export default function CreateForm({ setSubmitted }) {
     const updatedKeywords = [...formData.keywords];
 
     if (isChecked) {
-      console.log('checked')
       // Add keyword if it's been checked
       updatedKeywords.push({ keyword: keyword, name: keywordName })
     } else {
-      console.log('unchecked')
       // Remove keyword if it's been unchecked
       const keywordIndex = updatedKeywords.indexOf(keyword);
       updatedKeywords.splice(keywordIndex, 1);

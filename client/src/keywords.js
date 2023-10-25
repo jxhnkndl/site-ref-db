@@ -1,0 +1,16 @@
+export const keywords = [
+  { keyword: 'Light Theme', name: 'light-theme'},
+  { keyword: 'Dark Theme', name: 'dark-theme'},
+  { keyword: 'SPA', name: 'spa'},
+  { keyword: 'MPA', name: 'mpa'},
+  { keyword: 'Open Nav', name: 'open-nav'},
+  { keyword: 'Collapsed Nav', name: 'collapsed-nav'},
+  { keyword: 'Hybrid Nav', name: 'hybrid-nav'},
+  { keyword: 'SVG Logo', name: 'svg-logo'},
+  { keyword: 'CTA Listen', name: 'cta-listen'},
+  { keyword: 'CTA Shop', name: 'cta-shop'},
+  { keyword: 'CTA Other', name: 'cta-other'},
+  { keyword: 'Hero Video', name: 'hero-video'},
+  { keyword: 'Hero Photo', name: 'hero-photo'},
+  { keyword: 'Hero Abstract', name: 'hero-abstract'},
+]
