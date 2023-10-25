@@ -17,7 +17,12 @@ const siteSchema = new Schema({
     required: [true, 'Site type is required'],
     trim: true,
   },
-  keywords: [{ type: String }],
+  keywords: [
+    {
+      keyword: { type: String },
+      name: { type: String },
+    },
+  ],
 });
 
 // Check to see if model has already been built before rebuilding it
