@@ -1,8 +1,20 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import Site from '../components/Site';
 
-export default function Results({ sites }) {
+export default function Results() {
+  const [sites, setSites] = useState([]);
+
+  useEffect(() => {
+    const fetchSites = async () => {
+      const res = await fetch('/api/sites');
+      const data = await res.json();
+      setSites(data);
+    };
+
+    fetchSites();
+  }, []);
+  
   return (
     <>
       <aside className={`${styles.sidebar}`}>COMING SOON</aside>
@@ -20,4 +32,4 @@ const styles = {
   results: 'col-span-2',
 
   h2: 'pb-2 mb-6 border-b-2 border-b-dark/20 text-4xl font-bold uppercase tracking-widest',
-}
+};
