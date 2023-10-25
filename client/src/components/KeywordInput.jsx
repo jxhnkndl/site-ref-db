@@ -1,6 +1,4 @@
-import React from 'react';
-
-export default function KeywordInput({ formData, keyword, name, isChecked, handleCheck }) {
+export default function KeywordInput({ formData, keyword, name, handleCheck }) {
   return (
     <label className={`${styles.label}`}>
       <input
