@@ -33,21 +33,31 @@ export default function CreateForm() {
       // Add keyword if it's been checked
       updatedKeywords.push({ keyword: keyword, name: keywordName });
     } else {
-      // Remove keyword if it's been unchecked
-      const keywordIndex = updatedKeywords.indexOf(keyword);
-      updatedKeywords.splice(keywordIndex, 1);
+      // Remove keyword if it's been unchecked by finding index of removed keyword in
+      // keywords array and splicing it out
+      const keywordIndex = updatedKeywords.findIndex(
+        (currentKeyword) => currentKeyword.keyword === keyword
+      );
+
+      if (keywordIndex !== -1) {
+        updatedKeywords.splice(keywordIndex, 1);
+      }
     }
 
     setFormData({
       ...formData,
       keywords: updatedKeywords,
     });
+
+    console.log(keyword);
+    console.log(isChecked);
   };
 
   const validateURL = (url) => {
-    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    const urlRegex =
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
     return urlRegex.test(url);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,16 +93,22 @@ export default function CreateForm() {
     };
 
     try {
-      const res = await fetch('/api/sites', {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(newSite)
-      });
+      // const res = await fetch('/api/sites', {
+      //   method: 'POST',
+      //   headers: { 'Content-type': 'application/json' },
+      //   body: JSON.stringify(newSite),
+      // });
 
-      const data = await res.json();
+      // const data = await res.json();
 
       toast.success('Site created 🚀', {
         position: toast.POSITION.TOP_RIGHT,
+      });
+
+      setFormData({
+        url: '',
+        title: '',
+        keywords: [],
       });
     } catch (error) {
       console.error(error);
@@ -131,6 +147,7 @@ export default function CreateForm() {
               key={keyword.name}
               keyword={keyword.keyword}
               name={keyword.name}
+              formData={formData}
               handleCheck={handleCheck}
             />
           ))}

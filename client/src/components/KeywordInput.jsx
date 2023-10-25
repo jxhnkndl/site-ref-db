@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function KeywordInput({ keyword, name, handleCheck }) {
+export default function KeywordInput({ formData, keyword, name, isChecked, handleCheck }) {
   return (
     <label className={`${styles.label}`}>
       <input
@@ -8,6 +8,10 @@ export default function KeywordInput({ keyword, name, handleCheck }) {
         type='checkbox'
         value={keyword}
         name={name}
+        // Determine checked state based on whether keyword is in state or not
+        checked={formData.keywords.some(
+          (currentKeyword) => currentKeyword.keyword === keyword
+        )}
         onChange={handleCheck}
       />
       <div className={`${styles.keywordBadge}`}>
