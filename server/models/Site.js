@@ -12,11 +12,6 @@ const siteSchema = new Schema({
     required: [true, 'Title is required'],
     trim: true,
   },
-  type: {
-    type: String,
-    required: [true, 'Site type is required'],
-    trim: true,
-  },
   keywords: [
     {
       keyword: { type: String },
