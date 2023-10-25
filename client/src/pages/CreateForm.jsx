@@ -1,5 +1,21 @@
 import { useState } from 'react';
-import { keywords } from '../keywords';
+import { useNavigate } from 'react-router-dom';
+import {
+  categories,
+  themes,
+  colors,
+  fonts,
+  logoType,
+  animations,
+  pages,
+  navType,
+  ctas,
+  heroType,
+  sections,
+  contactOptions,
+  siteStyles,
+  quality,
+} from '../keywords';
 
 import { toast } from 'react-toastify';
 import KeywordInput from '../components/KeywordInput';
@@ -10,6 +26,8 @@ export default function CreateForm() {
     url: '',
     keywords: [],
   });
+
+  const navigate = useNavigate();
 
   const handleTextChange = (e) => {
     const input = e.target.name;
@@ -55,7 +73,7 @@ export default function CreateForm() {
 
   const validateURL = (url) => {
     const urlRegex =
-      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
     return urlRegex.test(url);
   };
 
@@ -99,7 +117,16 @@ export default function CreateForm() {
         body: JSON.stringify(newSite),
       });
 
-      await res.json();
+      const data = await res.json();
+
+      console.log(data)
+
+      if (data?.error?.code === 11000) {
+        toast.error('Website already exists in database', {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
 
       toast.success('Site created 🚀', {
         position: toast.POSITION.TOP_RIGHT,
@@ -110,6 +137,8 @@ export default function CreateForm() {
         title: '',
         keywords: [],
       });
+
+      navigate('/');
     } catch (error) {
       console.error(error);
       toast.error('Oh no! Something went wrong!', {
@@ -119,7 +148,7 @@ export default function CreateForm() {
   };
 
   return (
-    <div className={`${styles.sidebar}`}>
+    <div className={`${styles.formContainer}`}>
       <h2 className={`${styles.formHeading}`}>Add Site</h2>
       <form onSubmit={handleSubmit} className={`${styles.formAdd}`}>
         {/* URL */}
@@ -140,9 +169,10 @@ export default function CreateForm() {
           value={formData.title}
           onChange={handleTextChange}
         />
-        {/* KEYWORDS */}
+        {/* CATEGORIES */}
+        <h3 className={`${styles.formHeading}`}>Site Categories</h3>
         <div className={`${styles.keywordsContainer}`}>
-          {keywords.map((keyword) => (
+          {categories.map((keyword) => (
             <KeywordInput
               key={keyword.name}
               keyword={keyword.keyword}
@@ -152,6 +182,189 @@ export default function CreateForm() {
             />
           ))}
         </div>
+
+        {/* THEMES */}
+        <h3 className={`${styles.formHeading}`}>Site Theme</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {themes.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* COLORS */}
+        <h3 className={`${styles.formHeading}`}>Color Palette</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {colors.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* FONTS */}
+        <h3 className={`${styles.formHeading}`}>Font Families</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {fonts.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* LOGO TYPE */}
+        <h3 className={`${styles.formHeading}`}>Logo Type</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {logoType.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* ANIMATIONS */}
+        <h3 className={`${styles.formHeading}`}>Animations</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {animations.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* PAGES */}
+        <h3 className={`${styles.formHeading}`}>Pages</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {pages.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* PAGES */}
+        <h3 className={`${styles.formHeading}`}>Nav Type</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {navType.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* PAGES */}
+        <h3 className={`${styles.formHeading}`}>CTAs</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {ctas.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* PAGES */}
+        <h3 className={`${styles.formHeading}`}>Hero Type</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {heroType.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* SECTIONS */}
+        <h3 className={`${styles.formHeading}`}>Page Sections</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {sections.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* CONTACT OPTIONS */}
+        <h3 className={`${styles.formHeading}`}>Contact Options</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {contactOptions.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* SITE STYLES */}
+        <h3 className={`${styles.formHeading}`}>Site Styles</h3>
+        <div className={`${styles.keywordsContainer}`}>
+          {siteStyles.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
+        {/* QUALITY */}
+        <h3 className={`${styles.formHeading}`}>Perceived Quality</h3>
+        <div className={`${styles.keywordsContainer} mb-10`}>
+          {quality.map((keyword) => (
+            <KeywordInput
+              key={keyword.name}
+              keyword={keyword.keyword}
+              name={keyword.name}
+              formData={formData}
+              handleCheck={handleCheck}
+            />
+          ))}
+        </div>
+
         <button className={`${styles.submitBtn}`} type='submit'>
           Add Site
         </button>
@@ -161,7 +374,7 @@ export default function CreateForm() {
 }
 
 const styles = {
-  sidebar: 'p-4 mb-6 rounded bg-lighter',
+  formContainer: 'col-span-3 w-3/4 p-4 mx-auto mb-6 rounded bg-lighter',
 
   formHeading:
     'pb-1 mb-4 font-semibold uppercase tracking-wider border-b-[1px] border-b-dark/20',
