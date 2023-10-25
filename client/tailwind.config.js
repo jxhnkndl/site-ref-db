@@ -10,7 +10,9 @@ export default {
       royalBlue: '#368ABF',
       skyBlue: '#66CAF2',
       pink: '#D955AA',
-      palePink: '#f6a3d9'
+      palePink: '#f6a3d9',
+      green: '#0F8C3B',
+      orange: '#FA7F08'
     }
   },
   plugins: [require("@tailwindcss/forms")],
