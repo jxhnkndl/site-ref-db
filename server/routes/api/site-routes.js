@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const {
-  getAllSites
+  getAllSites,
+  createSite,
 } = require('../../controllers/site-controller');
 
-router.route('/').get(getAllSites);
+router.route('/').get(getAllSites).post(createSite);
 
 module.exports = router;
