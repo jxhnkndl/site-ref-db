@@ -1,5 +1,5 @@
 {
-  "name": "site-ref-db",
+  "name": "site-ref-db-server",
   "version": "1.0.0",
   "description": "UI for searching website references in a MongoDB database by title, site type, or keyword",
   "main": "server.js",
