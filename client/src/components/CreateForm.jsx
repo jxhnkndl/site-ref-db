@@ -7,7 +7,6 @@ import KeywordInput from './KeywordInput';
 export default function CreateForm() {
   const [formData, setFormData] = useState({
     title: '',
-    type: '',
     url: '',
     keywords: [],
   });
@@ -50,7 +49,7 @@ export default function CreateForm() {
 
     console.log(123);
 
-    const { url, title, type, keywords } = formData;
+    const { url, title, keywords } = formData;
 
     if (!url) {
       toast.error('Please include a valid URL 👀', {
@@ -66,21 +65,11 @@ export default function CreateForm() {
       return;
     }
 
-    if (!type) {
-      toast.error('Please include a site type 👀', {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      return;
-    }
-
     const newSite = {
       url,
       title,
-      type,
       keywords,
     };
-
-    console.log(newSite);
 
     try {
       const res = await fetch('/api/sites', {
@@ -90,8 +79,6 @@ export default function CreateForm() {
       });
 
       const data = await res.json();
-
-      console.log(data);
 
       toast.success('Site created 🚀', {
         position: toast.POSITION.TOP_RIGHT,
@@ -108,6 +95,7 @@ export default function CreateForm() {
     <div className={`${styles.sidebar}`}>
       <h2 className={`${styles.formHeading}`}>Add Site</h2>
       <form onSubmit={handleSubmit} className={`${styles.formAdd}`}>
+        {/* URL */}
         <input
           className={`${styles.input}`}
           name='url'
@@ -116,6 +104,7 @@ export default function CreateForm() {
           value={formData.url}
           onChange={handleTextChange}
         />
+        {/* TITLE */}
         <input
           className={`${styles.input}`}
           name='title'
@@ -124,15 +113,7 @@ export default function CreateForm() {
           value={formData.title}
           onChange={handleTextChange}
         />
-        <input
-          className={`${styles.input}`}
-          name='type'
-          type='text'
-          placeholder='Site Type'
-          value={formData.type}
-          onChange={handleTextChange}
-        />
-
+        {/* KEYWORDS */}
         <div className={`${styles.keywordsContainer}`}>
           {keywords.map((keyword) => (
             <KeywordInput
@@ -143,7 +124,6 @@ export default function CreateForm() {
             />
           ))}
         </div>
-
         <button className={`${styles.submitBtn}`} type='submit'>
           Add Site
         </button>
